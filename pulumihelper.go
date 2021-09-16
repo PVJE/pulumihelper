@@ -21,10 +21,10 @@ func GetMapValues(strings map[string]string) []string {
 	return values
 }
 
-func ToPulumiStringMap(tags map[string]string) pulumi.StringMap {
+func ToPulumiStringMap(tags map[string]string) *pulumi.StringMap {
 	tagsMap := make(pulumi.StringMap)
 	for k, v := range tags {
 		tagsMap[tags[k]] = pulumi.String(tags[v])
 	}
-	return tagsMap
+	return &tagsMap
 }
