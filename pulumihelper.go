@@ -21,7 +21,7 @@ func GetMapValues(strings map[string]string) []string {
 	return values
 }
 
-func ToPulumiStringMap(tags_key map[string]string, tags_values map[string]string) pulumi.StringMap {
+func ToPulumiStringMap(tags_key []string, tags_values []string) pulumi.StringMap {
 	tagsMap := make(pulumi.StringMap)
 	for k := range tags_key {
 		tagsMap[tags_key[k]] = pulumi.String(tags_values[k])
