@@ -1,3 +1,3 @@
-module github.com/PVJE/pulumihelper
+module github.com/pvje/pulumihelper
 
 go 1.17
