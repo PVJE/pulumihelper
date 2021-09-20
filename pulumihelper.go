@@ -73,7 +73,8 @@ func CreateVPC(vpc_name string, vpc_assign_generated_ipv6_cidr_block bool, vpc_c
 }
 
 func CreateSubnet(vpc_id *ec2.Vpc, name string, assignIpv6AddressOnCreation bool, availabilityZoneId string,
-	cidr_block string, availabilityZone string, customerOwnedIpv4Pool string, mapCustomerOwnedIpOnLaunch bool, tagsMap pulumi.StringMap, ctx *pulumi.Context) (*ec2.Subnet, error) {
+	cidr_block string, availabilityZone string, customerOwnedIpv4Pool string, mapCustomerOwnedIpOnLaunch bool,
+	MapPublicIpOnLaunch bool, tagsMap pulumi.StringMap, ctx *pulumi.Context) (*ec2.Subnet, error) {
 	my_subnet, err := ec2.NewSubnet(ctx, string(name), &ec2.SubnetArgs{
 		VpcId:                       vpc_id.ID(),
 		AssignIpv6AddressOnCreation: pulumi.Bool(assignIpv6AddressOnCreation),
@@ -81,7 +82,8 @@ func CreateSubnet(vpc_id *ec2.Vpc, name string, assignIpv6AddressOnCreation bool
 		CustomerOwnedIpv4Pool:       pulumi.String(customerOwnedIpv4Pool),
 		CidrBlock:                   pulumi.String(string(cidr_block)),
 		AvailabilityZone:            pulumi.String(string(availabilityZone)),
-		MapPublicIpOnLaunch:         pulumi.Bool(bool(mapCustomerOwnedIpOnLaunch)),
+		MapCustomerOwnedIpOnLaunch:  pulumi.Bool(bool(mapCustomerOwnedIpOnLaunch)),
+		MapPublicIpOnLaunch:         pulumi.Bool(bool(MapPublicIpOnLaunch)),
 		Tags:                        pulumi.StringMap(tagsMap),
 	})
 	if err != nil {
