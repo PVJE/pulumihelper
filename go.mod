@@ -2,7 +2,10 @@ module github.com/pvje/pulumihelper
 
 go 1.17
 
-require github.com/pulumi/pulumi/sdk/v3 v3.12.0
+require (
+	github.com/pulumi/pulumi-aws/sdk/v4 v4.20.0
+	github.com/pulumi/pulumi/sdk/v3 v3.12.0
+)
 
 require (
 	github.com/blang/semver v3.5.1+incompatible // indirect
