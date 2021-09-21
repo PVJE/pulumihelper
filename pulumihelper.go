@@ -32,12 +32,12 @@ func ToPulumiStringMap(tags map[string]string) pulumi.StringMap {
 	return tagsMap
 }
 
-func CreateNgw(ctx *pulumi.Context, name string, allocation_id string, subnet_id string, connectivity_type string, tagsMap pulumi.StringMap) (*ec2.NatGateway, error) {
+func CreateNgw(ctx *pulumi.Context, name string, allocation_id string, subnet_id *ec2.Subnet, connectivity_type string, tagsMap pulumi.StringMap) (*ec2.NatGateway, error) {
 	if len(allocation_id) > 0 && len(connectivity_type) > 0 {
 		my_igw, err := ec2.NewNatGateway(ctx, name, &ec2.NatGatewayArgs{
 			AllocationId:     pulumi.String(allocation_id),
 			ConnectivityType: pulumi.String(connectivity_type),
-			SubnetId:         pulumi.String(subnet_id),
+			SubnetId:         subnet_id.ID(),
 			Tags:             pulumi.StringMap(tagsMap),
 		})
 		if err != nil {
@@ -46,7 +46,7 @@ func CreateNgw(ctx *pulumi.Context, name string, allocation_id string, subnet_id
 		return my_igw, err
 	} else {
 		my_igw, err := ec2.NewNatGateway(ctx, name, &ec2.NatGatewayArgs{
-			SubnetId: pulumi.String(subnet_id),
+			SubnetId: subnet_id.ID(),
 			Tags:     pulumi.StringMap(tagsMap),
 		})
 		if err != nil {
